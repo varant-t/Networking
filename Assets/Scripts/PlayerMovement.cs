@@ -32,25 +32,22 @@ public class PlayerMovement : MonoBehaviourPun
         // Player Movement goes here
         Vector3 movement = Vector3.zero;
 
-        transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
-        if(controller.isGrounded)
+        transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
+        if (controller.isGrounded)
         {
+            
             movement = new Vector3(0, 0, Input.GetAxis("Vertical"));
 
-            movement = (transform.TransformDirection(movement));
+            movement = transform.TransformDirection(movement);
             movement *= speed;
 
             if(Input.GetButtonDown("Jump"))
             {
                 movement.y = jumpSpeed;
             }
-
-            movement.y -= gravity * Time.deltaTime;
+        }
+             movement.y -= gravity * Time.deltaTime;
 
             controller.Move(movement * Time.deltaTime);
-
-
-        }
-
     }
 }
